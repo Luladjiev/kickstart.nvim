@@ -190,12 +190,11 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'dracula/vim',
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
+    config = function ()
+      vim.cmd.colorscheme 'dracula'
+      end,
   },
 
   {
@@ -205,7 +204,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'dracula',
         component_separators = '|',
         section_separators = '',
       },
@@ -410,6 +409,7 @@ vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]e
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>sF', require('telescope.builtin').oldfiles, { desc = '[S]earch Old [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -423,7 +423,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'lua', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -571,7 +571,14 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        command = "clippy",
+        extraArgs = "-- clippy::pedantic",
+      },
+    },
+  },
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
@@ -614,7 +621,6 @@ mason_lspconfig.setup_handlers {
 -- See `:help cmp`
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
