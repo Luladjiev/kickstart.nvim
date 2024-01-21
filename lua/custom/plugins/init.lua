@@ -3,7 +3,7 @@
 --
 -- See the kickstart.nvim README for more information
 
-vim.keymap.set('n', '<TAB>', ':bn<cr>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '<S-TAB>', ':bp<cr>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '<leader><TAB>', '<cmd>bn<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<leader><S-TAB>', '<cmd>bp<cr>', { desc = 'Previous Buffer' })
 
 return {}
