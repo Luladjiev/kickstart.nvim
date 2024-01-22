@@ -13,7 +13,14 @@ return {
     { "<leader>al", _lazygit_toggle,       desc = "LazyGit" }
   },
   config = function()
-    require("toggleterm").setup({})
+    local shell
+    if vim.fn.has("win32") then
+      shell = "pwsh.exe"
+    end
+
+    require("toggleterm").setup({
+      shell = shell
+    })
   end
 }
 
