@@ -279,6 +279,9 @@ require('lazy').setup({
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+-- Set GUI Font
+vim.o.guifont = "JetBrainsMono Nerd Font"
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
